@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>web Work</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <div>接收子进程 post过来的message</div>
+    <script>
+            const myWorker=new Worker('http://192.168.0.103:3001/work.js')
+            myWorker.postMessage('hello Word'); // 向 worker 线程发送消息，对应 worker 线程中的 e.data
+            // myWorker.postMessage({method: 'echo', args: ['work']})
+            myWorker.addEventListener('message',e=>{
+                console.log("监听子组件发来的消息：", e.data) // 向主进程发送消息
+                // console.log('doSomeing')
+                // myWorker.terminate()
+            })
+
+            // 这种写法也可以
+            // myWorker.onmessage = e => { // 接收消息
+            //    console.log(e.data);
+            // };
+            // myWorker.addEventListener('error', err => {
+            //     console.log(err.message);
+            // });
+            // myWorker.addEventListener('messageerror', err => {
+            //     console.log(err.message)
+            // });
+
+            // 在主线程中关闭线程,在主线程中关闭
+            // myWorker.terminate()
+    </script>
+</body>
+</html>
